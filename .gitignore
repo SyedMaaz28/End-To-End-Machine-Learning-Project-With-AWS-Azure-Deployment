@@ -1,0 +1,23 @@
+# Virtual environment
+venv/
+.venv/
+env/
+.env/
+
+# Python bytecode
+__pycache__/
+*.pyc
+
+# Jupyter Notebook specific files
+.ipynb_checkpoints/
+
+# OS-specific files
+.DS_Store
+
+# Other common project specific ignores
+*.log
+*.sqlite3
+*.csv # Be careful with this one if you track data
+*.xlsx # Be careful with this one if you track data
+/data/ # if you have a local data folder that shouldn't be tracked
+/artifacts/ # if you save models/results here
