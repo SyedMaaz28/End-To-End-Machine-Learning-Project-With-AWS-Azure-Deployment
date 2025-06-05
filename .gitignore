@@ -21,3 +21,5 @@ __pycache__/
 *.xlsx # Be careful with this one if you track data
 /data/ # if you have a local data folder that shouldn't be tracked
 /artifacts/ # if you save models/results here
+
+.artifacts
