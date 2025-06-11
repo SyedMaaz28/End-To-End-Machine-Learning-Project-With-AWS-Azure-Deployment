@@ -48,8 +48,47 @@ class ModelTrainer:
                 'CatBoostRegressor': CatBoostRegressor(verbose=False),
                 'AdaBoostRegressor': AdaBoostRegressor(),
             }
+            params = {
+                'DecisionTreeRegressor': {
+                    'criterion': ['absolute_error', 'friedman_mse', 'poisson','squared_error'],
+                    #'splitter' : ['best', 'random'],
+                    #'max_features': ['auto', 'sqrt', 'log2'],
+                },
+                'RandomForestRegressor': {
+                    'n_estimators': [10, 50, 100],
+                    'criterion': ['absolute_error', 'friedman_mse', 'poisson','squared_error'],
+                    #'max_features': ['auto', 'sqrt', 'log2'],
+                },
+                'GradientBoostingRegressor': {
+                    'n_estimators': [8,10,16,32,50, 100],
+                    'learning_rate': [0.01, 0.1, 0.2],
+                    'loss': ['squared_error', 'absolute_error', 'huber'],
+                },
+                "LinearRegression": {
+                    # No hyperparameters to tune for Linear Regression
+                },
+                "KNeighborsRegressor": {
+                    'n_neighbors': [3, 5, 7],
+                    'weights': ['uniform', 'distance'],
+                },
+                "XGBRegressor": {
+                    'n_estimators': [10, 50, 100],
+                    'learning_rate': [0.01, 0.1, 0.2],
+                    'max_depth': [3, 5, 7],
+                },
+                "CatBoostRegressor": {
+                    'iterations': [10, 50, 100],
+                    'learning_rate': [0.01, 0.1, 0.2],
+                    'depth': [3, 5, 7],
+                },
+                "AdaBoostRegressor": {
+                    'n_estimators': [10, 50, 100],
+                    'learning_rate': [0.01, 0.1, 0.2],
+                }
+
+            }
             model_report:dict=evaluate_models(X_train = X_train, y_train = y_train, X_test = X_test,
-                                               y_test = y_test, models = models)
+                                               y_test = y_test, models = models,param=params)
 
 
 
