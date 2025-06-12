@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Exam Performance Indicator</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Apply Inter font and basic grayscale background to the body */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #e0e0e0; /* Light gray background */
+            min-height: 100vh; /* Ensure full viewport height */
+            display: flex; /* Use flexbox for centering */
+            align-items: center; /* Center vertically */
+            justify-content: center; /* Center horizontally */
+            padding: 20px; /* Add some padding around the content */
+            box-sizing: border-box; /* Include padding in element's total width and height */
+        }
+        /* Custom styling for placeholders in select dropdowns */
+        .placeholder {
+            color: #9e9e9e; /* Muted gray for placeholders */
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-md mx-auto">
+        <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">Student Exam Performance Indicator</h1>
+
+        <form id="predictionForm" action="{{ url_for('predict_datapoint')}}" method="post" class="space-y-4">
+            <h1 class="text-xl font-semibold text-gray-700 text-center mb-6">
+                <legend>Student Exam Performance Prediction</legend>
+            </h1>
+
+            <div class="mb-3">
+                <label class="block text-gray-700 text-sm font-medium mb-1" for="gender">Gender</label>
+                <select class="form-select w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400" id="gender" name="gender" required>
+                    <option class="placeholder" selected disabled value="">Select your Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="block text-gray-700 text-sm font-medium mb-1" for="ethnicity">Race or Ethnicity</label>
+                <select class="form-select w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400" id="ethnicity" name="ethnicity" required>
+                    <option class="placeholder" selected disabled value="">Select Ethnicity</option>
+                    <option value="group A">Group A</option>
+                    <option value="group B">Group B</option>
+                    <option value="group C">Group C</option>
+                    <option value="group D">Group D</option>
+                    <option value="group E">Group E</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="block text-gray-700 text-sm font-medium mb-1" for="parental_level_of_education">Parental Level of Education</label>
+                <select class="form-select w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400" id="parental_level_of_education" name="parental_level_of_education" required>
+                    <option class="placeholder" selected disabled value="">Select Parent Education</option>
+                    <option value="associate's degree">associate's degree</option>
+                    <option value="bachelor's degree">bachelor's degree</option>
+                    <option value="high school">high school</option>
+                    <option value="master's degree">master's degree</option>
+                    <option value="some college">some college</option>
+                    <option value="some high school">some high school</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="block text-gray-700 text-sm font-medium mb-1" for="lunch">Lunch Type</label>
+                <select class="form-select w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400" id="lunch" name="lunch" required>
+                    <option class="placeholder" selected disabled value="">Select Lunch Type</option>
+                    <option value="free/reduced">free/reduced</option>
+                    <option value="standard">standard</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="block text-gray-700 text-sm font-medium mb-1" for="test_preparation_course">Test preparation Course</label>
+                <select class="form-select w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400" id="test_preparation_course" name="test_preparation_course" required>
+                    <option class="placeholder" selected disabled value="">Select Test_course</option>
+                    <option value="none">None</option>
+                    <option value="completed">Completed</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="block text-gray-700 text-sm font-medium mb-1" for="reading_score">Reading Score out of 100</label>
+                <input class="form-input w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400" type="number" id="reading_score" name="reading_score" placeholder="Enter your Reading score" min='0' max='100' />
+            </div>
+
+            <div class="mb-3">
+                <label class="block text-gray-700 text-sm font-medium mb-1" for="writing_score">Writing Score out of 100</label>
+                <input class="form-input w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400" type="number" id="writing_score" name="writing_score" placeholder="Enter your Writing Score" min='0' max='100' />
+            </div>
+
+            <div class="text-center mt-6 flex justify-center space-x-4">
+                <input class="btn bg-gray-700 text-white px-6 py-3 rounded-md hover:bg-gray-800 transition-colors duration-200 shadow-md cursor-pointer" type="submit" value="Predict your Maths Score" />
+            </div>
+        </form>
+
+        {% if results is defined %}
+        <h2 class="text-xl font-bold text-center text-gray-800 mt-8" id="mathsPredictionResult">
+            The predicted Maths Score is: <span class="text-blue-600">{{ "%.2f"|format(results) }}</span>
+        </h2>
+        {% endif %}
+    </div>
+</body>
+</html>
